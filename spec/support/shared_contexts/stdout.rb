@@ -10,3 +10,7 @@ RSpec.shared_context 'stdout' do
     end
   end
 end
+
+RSpec.configure do |rspec|
+  rspec.include_context "stdout", :include_shared => true
+end

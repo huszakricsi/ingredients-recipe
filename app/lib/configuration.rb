@@ -6,7 +6,7 @@ class Configuration
   end
 
   def recipes_url
-    configuration[:recipes_url]
+    ENV['RECIPES_URL'] || configuration[:recipes_url]
   end
 
 end

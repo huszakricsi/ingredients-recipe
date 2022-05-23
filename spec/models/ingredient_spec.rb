@@ -10,4 +10,7 @@ RSpec.describe Ingredient, type: :model do
     it { should have_many(:ingredient_recipes)                    }
     it { should have_many(:recipes).through('ingredient_recipes') }
   end
+
+  include_examples 'property presences', ['name']
+
 end

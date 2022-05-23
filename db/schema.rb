@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_05_22_205417) do
+ActiveRecord::Schema.define(version: 2022_05_24_140522) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -33,15 +33,15 @@ ActiveRecord::Schema.define(version: 2022_05_22_205417) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
-  create_table "ingredients", force: :cascade do |t|
-    t.string "name", null: false
+  create_table "ingredient_recipes", force: :cascade do |t|
+    t.integer "recipe_id", null: false
+    t.integer "ingredient_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
 
-  create_table "ingredient_recipes", force: :cascade do |t|
-    t.integer "recipe_id", null: false
-    t.integer "ingredient_id", null: false
+  create_table "ingredients", force: :cascade do |t|
+    t.string "name", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
@@ -51,12 +51,13 @@ ActiveRecord::Schema.define(version: 2022_05_22_205417) do
     t.integer "cook_time"
     t.integer "prep_time"
     t.float "ratings"
-    t.integer "cuisine_id", null: true
-    t.integer "category_id", null: true
-    t.integer "author_id", null: true
+    t.integer "cuisine_id"
+    t.integer "category_id"
+    t.integer "author_id"
     t.text "image"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "ingredients_count"
   end
 
 end

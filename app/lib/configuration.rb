@@ -6,7 +6,11 @@ class Configuration
   end
 
   def recipes_url
-    ENV['RECIPES_URL'] || configuration[:recipes_url]
+    @recipes_url ||= (ENV['RECIPES_URL'] || configuration[:recipes_url])
+  end
+
+  def paginates_per
+    @paginates_per ||= (ENV['PAGINATES_PER'] || configuration[:paginates_per])
   end
 
 end

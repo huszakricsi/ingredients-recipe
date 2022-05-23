@@ -19,4 +19,6 @@ Initialize database:
 
 After the steps above, you can start the application by executing "rails s"
 
-You can generate test coverage by setting the SIMPLECOV environment variable to true: "SIMPLECOV=true rspec"
+You can generate test coverage by setting the SIMPLECOV environment variable to true: "SIMPLECOV=true rspec" which should be 100%
+
+I was focusing more on the backend than the frontend since you are using React, but I would be happy to have a chance to learn it, even in the part of my free time if needed :)

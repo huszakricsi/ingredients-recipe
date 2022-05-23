@@ -1,0 +1,29 @@
+%h2
+  = link_to 'Recipes', recipes_path
+  \/Recipe: 
+  =@recipe.title
+
+%h4 Title
+= @recipe.title
+%br
+= image_tag(@recipe.image, {width: "25%"})
+%h4 Ingredients
+= ingredients_list(@recipe)
+-# I hope you dont mind this:
+%h4 Ingredients separated by commas, to test the search funcionality easier :)
+= ingredients_list_with_commas(@recipe)
+%h4 Ratings
+= @recipe.ratings
+%h4 Cook time
+= @recipe.cook_time
+%h4 Preparation time
+= @recipe.prep_time
+%h4 Ratings
+= @recipe.ratings
+%h4 Author
+= @recipe.try(:author).try(:name)
+%h4 Category
+= @recipe.try(:category).try(:name)
+%h4 Cuisine
+= @recipe.try(:cuisine).try(:name)
+

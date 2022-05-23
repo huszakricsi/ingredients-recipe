@@ -1,0 +1,21 @@
+= form_with action: recipes_path, method: :get do |form|
+  %div
+    %label
+    %br
+      Ingredients (separated by commas) (hint: you can copy from a recipe, theres also a comma separated ingredient list on their view :) )
+    = form.text_area :ingredients, value: params[:ingredients], size: "125x10"
+    %br
+    Author
+    %br
+    = form.select :author_ids, options_from_collection_for_select(Author.all.order(:name), :id, :name, selected: params[:author_ids]), {:include_blank => true}, {:multiple => true}
+    %br
+    Category
+    %br
+    = form.select :category_ids, options_from_collection_for_select(Category.all.order(:name), :id, :name, selected: params[:category_ids]), {:include_blank => true}, {:multiple => true}
+    %br
+    Cuisine
+    %br
+    = form.select :cuisine_ids, options_from_collection_for_select(Cuisine.all.order(:name), :id, :name, selected: params[:cuisine_ids]), {:include_blank => true}, {:multiple => true}
+    %br
+    = form.submit 'Search'
+    = link_to 'Reset search', recipes_path

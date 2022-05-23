@@ -9,4 +9,20 @@ RSpec.describe Cuisine, type: :model do
 
     it { should have_many(:recipes).class_name('Recipe') }
   end
+
+  include_examples 'property presences', ['name']
+
+  describe 'Validations' do
+    let(:valid_name_create_params) { { name: 'Valid Name'} }
+    let(:invalid_name_create_params) { { name: '0-9`!@#\$%\^&*+_='} }
+
+    
+    it "Passes the validation when the name contains only valid characters" do
+      expect(described_class.create(valid_name_create_params).errors.full_messages).not_to include('Name is invalid')
+    end
+
+    it "Fails the validation when the name contains any ivalid characters" do
+      expect(described_class.create(invalid_name_create_params).errors.full_messages).to   include('Name is invalid')
+    end
+  end
 end

@@ -9,4 +9,7 @@ RSpec.describe Category, type: :model do
 
     it { should have_many(:recipes).class_name('Recipe') }
   end
+
+  include_examples 'property presences', ['name']
+
 end

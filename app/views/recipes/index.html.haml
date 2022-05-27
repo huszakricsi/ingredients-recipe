@@ -5,25 +5,18 @@
   %thead
     %th
       Title 
-      = order_links_for('title')
     %th
       Cook time
-      = order_links_for('cook_time')
     %th
       Preparation time
-      = order_links_for('prep_time')
     %th
       Ratings
-      = order_links_for('ratings')
     %th
       Author
-      = order_links_for('authors', 'name')
     %th
       Category
-      = order_links_for('categories', 'name')
     %th
       Cuisine
-      = order_links_for('cuisines', 'name')
   - @recipes.each do |recipe|
     %tr
       %td

@@ -11,12 +11,20 @@ RSpec.describe "Recipes", type: :request do
     let!(:recipe_3)     { Recipe.create(title: 'title3', image: 'http://www.image.com/image/123', ingredients: [ingredient_3]) }
 
     it "returns http success" do
-      get "/recipes", :params => { ingredients: "ingredient_2, ingredient_3" }
+      get "/recipes"
       expect(response).to have_http_status(:success)
     end
 
+    it "page contains the most relevant recipes" do
+      get "/recipes", :params => { ingredients: "ingredient_3"}
+
+      expect(response.body).not_to include("title1")
+      expect(response.body).to     include("title2")
+      expect(response.body).to     include("title3")
+    end
+    
     it "page only contains the filtered recipes" do
-      get "/recipes", :params => { ingredients: "ingredient_2, ingredient_3" }
+      get "/recipes", :params => { ingredients: "ingredient_2, ingredient_3", all_ingredients_owned: true  }
 
       expect(response.body).not_to include("title1")
       expect(response.body).to     include("title2")
@@ -46,4 +54,3 @@ RSpec.describe "Recipes", type: :request do
   end
 
 end
-

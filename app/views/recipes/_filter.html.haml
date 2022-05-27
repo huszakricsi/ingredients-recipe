@@ -4,6 +4,8 @@
     %br
       Ingredients (separated by commas) (hint: you can copy from a recipe, theres also a comma separated ingredient list on their view :) )
     = form.text_area :ingredients, value: params[:ingredients], size: "125x10"
+    Search only for all ingredients owned:
+    = check_box_tag :all_ingredients_owned, true, !!params[:all_ingredients_owned]
     %br
     Author
     %br

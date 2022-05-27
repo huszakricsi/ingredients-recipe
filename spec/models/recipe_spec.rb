@@ -84,7 +84,7 @@ RSpec.describe Recipe, type: :model do
       end
     end
 
-    describe 'ingredients_search' do
+    describe 'all_ingredients_owned_search' do
       let(:ingredient_1) { Ingredient.create(name: 'ingredient_1') }
       let(:ingredient_2) { Ingredient.create(name: 'ingredient_2') }
       let(:ingredient_3) { Ingredient.create(name: 'ingredient_3') }
@@ -100,8 +100,29 @@ RSpec.describe Recipe, type: :model do
       let(:expected_result_2) { [recipe_1, recipe_3].pluck(:id) }
 
       it 'Filters correctly by ingredients' do
-        expect(Recipe.ingredients_search(search_criteria_1).pluck(:id)).to match_array(expected_result_1)
-        expect(Recipe.ingredients_search(search_criteria_2).pluck(:id)).to match_array(expected_result_2)
+        expect(Recipe.all_ingredients_owned_search(search_criteria_1).pluck(:id)).to match_array(expected_result_1)
+        expect(Recipe.all_ingredients_owned_search(search_criteria_2).pluck(:id)).to match_array(expected_result_2)
+      end
+    end
+
+    describe 'most_relevant_ingredients_search' do
+      let(:ingredient_1) { Ingredient.create(name: 'ingredient_1') }
+      let(:ingredient_2) { Ingredient.create(name: 'ingredient_2') }
+      let(:ingredient_3) { Ingredient.create(name: 'ingredient_3') }
+
+      let!(:recipe_1)     { Recipe.create(title: 'title', image: 'http://www.image.com/image/123', ingredients: [ingredient_1]) }
+      let!(:recipe_2)     { Recipe.create(title: 'title', image: 'http://www.image.com/image/123', ingredients: [ingredient_2, ingredient_3]) }
+      let!(:recipe_3)     { Recipe.create(title: 'title', image: 'http://www.image.com/image/123', ingredients: [ingredient_3]) }
+
+      let(:search_criteria_1) { ['ingredient_2', 'ingredient_3'] }
+      let(:expected_result_1) { [recipe_2, recipe_3].pluck(:id) }
+
+      let(:search_criteria_2) { ['ingredient_1', 'ingredient_3'] }
+      let(:expected_result_2) { [recipe_1, recipe_2, recipe_3].pluck(:id) }
+
+      it 'Filters correctly by ingredients' do
+        expect(Recipe.most_relevant_ingredients_search(search_criteria_1).map(&:id)).to match_array(expected_result_1)
+        expect(Recipe.most_relevant_ingredients_search(search_criteria_2).map(&:id)).to match_array(expected_result_2)
       end
     end
 
@@ -137,7 +158,7 @@ RSpec.describe Recipe, type: :model do
                 .author_search(search_criteria_by_authors)
                 .category_search(search_criteria_by_categories)
                 .cuisine_search(search_criteria_by_cuisines)
-                .ingredients_search(search_criteria_by_ingredients)
+                .all_ingredients_owned_search(search_criteria_by_ingredients)
                 .pluck(:id)
               ).to match_array(expected_result_1)
       end

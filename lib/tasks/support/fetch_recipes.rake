@@ -16,7 +16,7 @@ namespace :support do
 
       p 'Storing the recipes and associations'
       parsed_recipes.each_with_index do |recipe, index|
-
+        #Rails.cache.fetch([class.name, id]) {Author.create!({name: recipe['author']}).id} should be a method in author..
         recipe['author_id']   = Author.find_or_create_by!({name: recipe['author']}).id     if recipe['author'].present?
         recipe['category_id'] = Category.find_or_create_by!({name: recipe['category']}).id if recipe['category'].present?
         recipe['cuisine_id']  = Cuisine.find_or_create_by!({name: recipe['cuisine']}).id   if recipe['cuisine'].present?
